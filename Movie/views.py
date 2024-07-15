@@ -1,16 +1,15 @@
 from django.shortcuts import render
 from rest_framework.decorators import permission_classes
 from django.utils.decorators import method_decorator
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 import requests
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
-
-
 from rest_framework.decorators import api_view
+
 # Create your views here.
 class SaveDBAPI(APIView):
     # 영화 데이터를 json으로 받아서 DB에 저장
@@ -69,3 +68,16 @@ def comment(request, pk): # 댓글달기
             movie_serializer = MovieDetailSerializer(movie)
             return Response(movie_serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class homeMovieAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([AllowAny]))
+    def get(self, request, pageIdx):
+        maxIdx = pageIdx * 10
+        startIdx = maxIdx - 9
+
+        movies = Movie.objects.filter(id__gte=startIdx, id__lte=maxIdx)
+        serializer = HomeMoviesSerializer(movies, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

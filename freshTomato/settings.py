@@ -42,13 +42,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
     'rest_framework_simplejwt',
     'User',
     'Movie',
-
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
     'allauth.socialaccount',
     # Login via Google as an exemple, you can choose facebook, twitter as you like
     'allauth.socialaccount.providers.google',
@@ -63,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware'
-
 ]
 
 ROOT_URLCONF = 'freshTomato.urls'
@@ -79,11 +77,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Required by allauth template tags
-                "django.core.context_processors.request",
-                # allauth specific context processors
-                "allauth.account.context_processors.account",
-                "allauth.socialaccount.context_processors.socialaccount",
             ],
         },
     },
