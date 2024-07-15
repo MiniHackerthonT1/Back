@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import permission_classes
 from django.utils.decorators import method_decorator
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsOwnerOrReadOnly
 from rest_framework.views import APIView
 import requests
 from rest_framework.response import Response
@@ -36,18 +36,6 @@ class searchMovieAPI(APIView):
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from .models import Movie
-from .serializers import *
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-
-from .permissions import IsOwnerOrReadOnly
-
 # @api_view(['GET'])
 # @authentication_classes([JWTAuthentication])
 # @permission_classes([IsAuthenticatedOrReadOnly])
@@ -57,10 +45,6 @@ from .permissions import IsOwnerOrReadOnly
 #         serializer = SaveMovieToDBSerializer(movies, many = True) #영화 목록 보여주는 시리얼라이저 가져오기
 #         return Response(serializer.data, status=status.HTTP_200_OK)
 #     return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-
-    
 
 @api_view(['GET']) # 영화 디테일
 def movie_detail(request, pk):
