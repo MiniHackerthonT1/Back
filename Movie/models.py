@@ -23,8 +23,8 @@ class Movie(models.Model):
     actors = models.ManyToManyField(Actor)
 
 class Comment(models.Model):
-    movie_id = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE, related_name = "+")
+    movie = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE, related_name = "+")
     user = models.ForeignKey(CustomUser, null = True, on_delete=models.CASCADE)
     content = models.TextField(default="")
-
+    
 

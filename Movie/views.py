@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes,  authentication_classes
 from django.utils.decorators import method_decorator
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
@@ -9,7 +9,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
 from rest_framework.decorators import api_view
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 # Create your views here.
 class SaveDBAPI(APIView):
     # 영화 데이터를 json으로 받아서 DB에 저장
@@ -35,17 +36,10 @@ class searchMovieAPI(APIView):
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-# @api_view(['GET'])
-# @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticatedOrReadOnly])
-# def movie_list(request):
-#     if request.method == 'GET':
-#         movies = Movie.objects.all()
-#         serializer = SaveMovieToDBSerializer(movies, many = True) #영화 목록 보여주는 시리얼라이저 가져오기
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-#     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET']) # 영화 디테일
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def movie_detail(request, pk):
     try:
         movie = Movie.objects.get(pk=pk)
@@ -56,6 +50,8 @@ def movie_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def comment(request, pk): # 댓글달기
     try:
         movie = Movie.objects.get(pk=pk)
@@ -71,7 +67,6 @@ def comment(request, pk): # 댓글달기
     
 class homeMovieAPI(APIView):
     authentication_classes = [JWTAuthentication]
-
     @method_decorator(permission_classes([AllowAny]))
     def get(self, request, pageIdx):
         maxIdx = pageIdx * 10
