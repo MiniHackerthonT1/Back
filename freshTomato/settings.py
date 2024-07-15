@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'allauth',
-    'allauth.account',
     'rest_framework_simplejwt',
     'User',
     'Movie',
@@ -64,11 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
     'allauth.account.middleware.AccountMiddleware'
-=======
-    'allauth.account.middleware.AccountMiddleware',
->>>>>>> 78489b6 (회원가입은 됨..)
+
 ]
 
 ROOT_URLCONF = 'freshTomato.urls'

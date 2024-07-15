@@ -20,10 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('User/', include('User.urls')),
-<<<<<<< HEAD
     path('Movie/', include('Movie.urls')),
-=======
     path('dj/', include('dj_rest_auth.urls')),
     path('dj/registration/', include('dj_rest_auth.registration.urls')),
->>>>>>> 78489b6 (회원가입은 됨..)
 ]
