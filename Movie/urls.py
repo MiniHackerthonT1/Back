@@ -6,4 +6,5 @@ app_name = 'Movie'
 
 urlpatterns = [
     path('saveDB/', SaveDBAPI.as_view()),
+    path('search/<str:movieName>/', searchMovieAPI.as_view()),
 ]
