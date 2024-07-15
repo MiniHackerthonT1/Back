@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
+
+
 from rest_framework.decorators import api_view
 # Create your views here.
 class SaveDBAPI(APIView):
@@ -33,6 +35,31 @@ class searchMovieAPI(APIView):
 
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from .models import Movie
+from .serializers import *
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.response import Response
+from rest_framework import status
+
+from .permissions import IsOwnerOrReadOnly
+
+# @api_view(['GET'])
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticatedOrReadOnly])
+# def movie_list(request):
+#     if request.method == 'GET':
+#         movies = Movie.objects.all()
+#         serializer = SaveMovieToDBSerializer(movies, many = True) #영화 목록 보여주는 시리얼라이저 가져오기
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
     
 
 @api_view(['GET']) # 영화 디테일
