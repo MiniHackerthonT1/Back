@@ -33,3 +33,16 @@ class searchMovieAPI(APIView):
 
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class homeMovieAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([AllowAny]))
+    def get(self, request, pageIdx):
+        maxIdx = pageIdx * 10
+        startIdx = maxIdx - 9
+
+        movies = Movie.objects.filter(id__gte=startIdx, id__lte=maxIdx)
+        serializer = HomeMoviesSerializer(movies, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -29,3 +29,8 @@ class SearchMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ['id', 'title_kor', 'title_eng', 'poster_url', 'rating']
+
+class HomeMoviesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ['id', 'title_kor', 'title_eng', 'poster_url']
