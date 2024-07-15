@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l!^ak!v)d5kg@r(hx**e_4$yp=a5^_dxp#51(#p7yjy&ns#-mz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.211.66.39','freshtomato.store','127.0.0.1']
 
 
 # Application definition
@@ -90,11 +90,14 @@ WSGI_APPLICATION = 'freshTomato.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tomato', # DB(스키마) 이름
+        'USER': 'root', # 유저 이름 (root)
+        'PASSWORD': 'freshtomato', # DB 비밀번호
+        'HOST': 'tomato-db.cv0wy6q0ed4c.ap-southeast-2.rds.amazonaws.com', # DB 엔드포인트
+        'PORT': 3306,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -200,3 +203,8 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
 }
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
