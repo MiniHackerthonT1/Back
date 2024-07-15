@@ -27,9 +27,9 @@ class searchMovieAPI(APIView):
 
     @method_decorator(permission_classes([AllowAny]))
     def get(self, request, movieName):
-        movies = Movie.objects.filter(title_eng__contains=movieName) # title_eng이 movieName을 포함하는 영화
-        if (len(movies) == 0):
-            movies = Movie.objects.filter(title_kor__contains=movieName) # 영어 제목이 아니면 한글 제목으로 검색
+        moviesKor = Movie.objects.filter(title_kor__contains=movieName) # title_kor이 movieName을 포함하는 영화
+        moviesEng = Movie.objects.filter(title_eng__contains=movieName) # title_eng이 movieName을 포함하는 영화
+        movies = moviesKor | moviesEng
 
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
