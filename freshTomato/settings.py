@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Login via Google as an exemple, you can choose facebook, twitter as you like
     'allauth.socialaccount.providers.google',
-    'allauth.account.context_processors',
 ]
 
 MIDDLEWARE = [

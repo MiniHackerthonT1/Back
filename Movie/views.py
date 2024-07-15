@@ -11,8 +11,6 @@ from .serializers import *
 
 from rest_framework.decorators import api_view
 
-from .permissions import IsOwnerOrReadOnly
-
 
 from rest_framework.decorators import api_view
 
