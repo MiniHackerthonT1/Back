@@ -6,4 +6,6 @@ app_name = 'Movie'
 
 urlpatterns = [
     path('saveDB/', SaveDBAPI.as_view()),
+    path('movie_detail/<int:pk>/', movie_detail),
+    path('movie_detail/<int:pk>/comment/',comment),
 ]
