@@ -5,6 +5,6 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
     email = None
-    username = models.CharField(max_length=100, unique = True)
-    password = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique = True) #회원가입 시 아이디
     nickname = models.CharField(max_length=100)
+

@@ -1,7 +1,7 @@
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from allauth.account.adapter import get_adapter
 from rest_framework import serializers
-from .models import Movie, Actor
+from .models import Movie, Actor, Comment
 
 class SaveActorToDBSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,6 +29,26 @@ class SearchMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ['id', 'title_kor', 'title_eng', 'poster_url', 'rating']
+
+class CommentSerializer(serializers.ModelSerializer):
+    nickname = serializers.SerializerMethodField()
+    class Meta:
+        model = Comment
+        fields = ['nickname','content']
+    def get_nickname(self,obj):
+        return obj.nickname
+    
+class ActorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = ['name', 'character', 'image_url']
+class MovieDetailSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True,  read_only=True)
+    actors = ActorSerializer(many=True, read_only=True)
+    class Meta:
+        model = Movie
+        fields = ['actors', 'title_kor', 'title_eng', 'poster_url', 'genre', 'showtime', 'release_date', 'plot', 'rating', 'director_name', 'director_image_url','comments']
+
 
 class HomeMoviesSerializer(serializers.ModelSerializer):
     class Meta:
