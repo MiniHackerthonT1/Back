@@ -8,8 +8,18 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
+<<<<<<< HEAD
 from rest_framework.decorators import api_view
 
+=======
+from .permissions import IsOwnerOrReadOnly
+
+<<<<<<< HEAD
+
+from rest_framework.decorators import api_view
+=======
+>>>>>>> 6cf300f (????)
+>>>>>>> 8d3f7eb (????)
 # Create your views here.
 class SaveDBAPI(APIView):
     # 영화 데이터를 json으로 받아서 DB에 저장
@@ -34,7 +44,17 @@ class searchMovieAPI(APIView):
 
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+<<<<<<< HEAD
 
+<<<<<<< HEAD
+=======
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+=======
+>>>>>>> 6cf300f (????)
+
+
+>>>>>>> 8d3f7eb (????)
 # @api_view(['GET'])
 # @authentication_classes([JWTAuthentication])
 # @permission_classes([IsAuthenticatedOrReadOnly])
@@ -45,6 +65,14 @@ class searchMovieAPI(APIView):
 #         return Response(serializer.data, status=status.HTTP_200_OK)
 #     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+
+    
+
+>>>>>>> 8d3f7eb (????)
 @api_view(['GET']) # 영화 디테일
 def movie_detail(request, pk):
     try:
@@ -68,6 +96,7 @@ def comment(request, pk): # 댓글달기
             movie_serializer = MovieDetailSerializer(movie)
             return Response(movie_serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+<<<<<<< HEAD
     
 class homeMovieAPI(APIView):
     authentication_classes = [JWTAuthentication]
@@ -81,3 +110,7 @@ class homeMovieAPI(APIView):
         serializer = HomeMoviesSerializer(movies, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+=======
+=======
+>>>>>>> 6cf300f (????)
+>>>>>>> 8d3f7eb (????)
