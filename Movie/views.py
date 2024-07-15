@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
+from .permissions import IsOwnerOrReadOnly
 
-<<<<<<< HEAD
 # Create your views here.
 class SaveDBAPI(APIView):
     # 영화 데이터를 json으로 받아서 DB에 저장
@@ -34,18 +34,7 @@ class searchMovieAPI(APIView):
 
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-=======
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from .models import Movie
-from .serializers import *
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-
-from .permissions import IsOwnerOrReadOnly
 
 # @api_view(['GET'])
 # @authentication_classes([JWTAuthentication])
@@ -57,4 +46,3 @@ from .permissions import IsOwnerOrReadOnly
 #         return Response(serializer.data, status=status.HTTP_200_OK)
 #     return Response(status=status.HTTP_400_BAD_REQUEST)
 
->>>>>>> 78489b6 (회원가입은 됨..)
