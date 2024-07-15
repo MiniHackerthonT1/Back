@@ -24,3 +24,8 @@ class SaveMovieToDBSerializer(serializers.ModelSerializer):
             movie.actors.add(actor)
 
         return "완료!"
+    
+class SearchMovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ['id', 'title_kor', 'title_eng', 'poster_url', 'rating']

@@ -1,7 +1,11 @@
 from django.shortcuts import render
+from rest_framework.decorators import permission_classes
+from django.utils.decorators import method_decorator
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 import requests
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
 
@@ -17,3 +21,15 @@ class SaveDBAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+class searchMovieAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([AllowAny]))
+    def get(self, request, movieName):
+        movies = Movie.objects.filter(title_eng__contains=movieName) # title_eng이 movieName을 포함하는 영화
+        if (len(movies) == 0):
+            movies = Movie.objects.filter(title_kor__contains=movieName) # 영어 제목이 아니면 한글 제목으로 검색
+
+        serializer = SearchMovieSerializer(movies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
