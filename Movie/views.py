@@ -1,16 +1,15 @@
 from django.shortcuts import render
 from rest_framework.decorators import permission_classes
 from django.utils.decorators import method_decorator
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 import requests
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
-
-
 from rest_framework.decorators import api_view
+
 # Create your views here.
 class SaveDBAPI(APIView):
     # 영화 데이터를 json으로 받아서 DB에 저장

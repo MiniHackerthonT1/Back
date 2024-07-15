@@ -47,10 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'User',
     'Movie',
-
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
     'allauth.socialaccount',
     # Login via Google as an exemple, you can choose facebook, twitter as you like
     'allauth.socialaccount.providers.google',
@@ -64,11 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
     'allauth.account.middleware.AccountMiddleware'
-=======
-    'allauth.account.middleware.AccountMiddleware',
->>>>>>> 78489b6 (회원가입은 됨..)
 ]
 
 ROOT_URLCONF = 'freshTomato.urls'
