@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Login via Google as an exemple, you can choose facebook, twitter as you like
     'allauth.socialaccount.providers.google',
+    'allauth.account.context_processors',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+<<<<<<< HEAD
     'allauth.account.middleware.AccountMiddleware'
+=======
+    'allauth.account.middleware.AccountMiddleware',
+>>>>>>> 4cf6d96 (버리고픈내코드)
 ]
 
 ROOT_URLCONF = 'freshTomato.urls'
@@ -77,6 +82,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+<<<<<<< HEAD
+=======
+                # Required by allauth template tags
+                # allauth specific context processors
+                "allauth.account.context_processors.account",
+                "allauth.socialaccount.context_processors.socialaccount",
+>>>>>>> 4cf6d96 (버리고픈내코드)
             ],
         },
     },
@@ -184,6 +196,7 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 이 부분
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False # 이 부분
 
 SIMPLE_JWT = {
@@ -200,3 +213,10 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1

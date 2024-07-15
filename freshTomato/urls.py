@@ -20,7 +20,10 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('User/', include('User.urls')),
+<<<<<<< HEAD
     path('Movie/', include('Movie.urls')),
+=======
+>>>>>>> 4cf6d96 (버리고픈내코드)
     path('dj/', include('dj_rest_auth.urls')),
     path('dj/registration/', include('dj_rest_auth.registration.urls')),
 ]
