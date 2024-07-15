@@ -47,14 +47,14 @@ from rest_framework import status
 
 from .permissions import IsOwnerOrReadOnly
 
-@api_view(['GET'])
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticatedOrReadOnly])
-def movie_list(request):
-    if request.method == 'GET':
-        movies = Movie.objects.all()
-        serializer = SaveMovieToDBSerializer(movies, many = True) #영화 목록 보여주는 시리얼라이저 가져오기
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['GET'])
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticatedOrReadOnly])
+# def movie_list(request):
+#     if request.method == 'GET':
+#         movies = Movie.objects.all()
+#         serializer = SaveMovieToDBSerializer(movies, many = True) #영화 목록 보여주는 시리얼라이저 가져오기
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 >>>>>>> 78489b6 (회원가입은 됨..)
