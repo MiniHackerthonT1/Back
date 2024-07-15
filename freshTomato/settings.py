@@ -62,11 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
     'allauth.account.middleware.AccountMiddleware'
-=======
-    'allauth.account.middleware.AccountMiddleware',
->>>>>>> 4cf6d96 (버리고픈내코드)
 ]
 
 ROOT_URLCONF = 'freshTomato.urls'
@@ -82,13 +78,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-<<<<<<< HEAD
-=======
-                # Required by allauth template tags
-                # allauth specific context processors
-                "allauth.account.context_processors.account",
-                "allauth.socialaccount.context_processors.socialaccount",
->>>>>>> 4cf6d96 (버리고픈내코드)
             ],
         },
     },
