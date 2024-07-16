@@ -15,8 +15,7 @@ from .models import Movie
 # Create your views here.
 class registerWatchlistAPI(APIView):
     def post(self, request):
-        print(request)
-        movieId = request.movieId
+        movieId = request.data['movieId']
         movie = Movie.objects.get(pk=movieId)
         user = request.user
 
@@ -25,3 +24,11 @@ class registerWatchlistAPI(APIView):
             serializer.save(user=user, movie=movie)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class getWatchlistAPI(APIView):
+    def get(self, request):
+        user = request.user
+        watchlists = Watchlist.objects.filter(user=user)
+
+        serializer = GetWatchlistSerializer(instance=watchlists, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
