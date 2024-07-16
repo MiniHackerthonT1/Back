@@ -26,5 +26,12 @@ class Comment(models.Model):
     movie = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE, related_name = "comments")
     user = models.ForeignKey(CustomUser, null = True, on_delete=models.CASCADE)
     content = models.TextField(default="")
+
+class Reply(models.Model):
+    movie = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, null = True, on_delete=models.CASCADE, related_name="replies")
+    comment = models.ForeignKey(Comment, null=True, on_delete=models.CASCADE, related_name="replies")
+    content = models.TextField(default="")
+    
     
 
