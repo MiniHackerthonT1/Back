@@ -76,3 +76,34 @@ class homeMovieAPI(APIView):
         serializer = HomeMoviesSerializer(movies, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class saveReplyAPI(APIView):
+    def post(self, request):
+        user = request.user
+
+        movieId = request.data['movieId']
+        movie = Movie.objects.get(pk=movieId)
+
+        commentId = request.data['commentId']
+        comment = Comment.objects.get(pk=commentId)
+
+        serializer = SaveReplySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(movie=movie, user=user, comment=comment)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class deleteCommentAPI(APIView):
+    def delete(self, request, commentId):
+        comment = Comment.objects.get(pk=commentId)
+        comment.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class deleteReplyAPI(APIView):
+    def delete(self, request, replyId):
+        reply = Reply.objects.get(pk=replyId)
+        reply.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)

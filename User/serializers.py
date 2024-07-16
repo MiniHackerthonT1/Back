@@ -1,6 +1,7 @@
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from allauth.account.adapter import get_adapter
 from rest_framework import serializers
+from .models import CustomUser
 
 class CustomRegisterSerializer(RegisterSerializer):
     username = serializers.CharField(max_length=100)
@@ -24,8 +25,6 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.save()
         adapter.save_user(request, user, self)
         return user
-
-from .models import CustomUser
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
     class Meta:
