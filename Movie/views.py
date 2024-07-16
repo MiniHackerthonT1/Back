@@ -1,16 +1,14 @@
 from django.shortcuts import render
 from rest_framework.decorators import permission_classes,  authentication_classes
 from django.utils.decorators import method_decorator
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 import requests
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
-from rest_framework.decorators import api_view
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 # Create your views here.
 class SaveDBAPI(APIView):
     # 영화 데이터를 json으로 받아서 DB에 저장
@@ -35,7 +33,6 @@ class searchMovieAPI(APIView):
 
         serializer = SearchMovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 @api_view(['GET']) # 영화 디테일
 @authentication_classes([JWTAuthentication])
@@ -78,6 +75,9 @@ class homeMovieAPI(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class saveReplyAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([IsAuthenticatedOrReadOnly]))
     def post(self, request):
         user = request.user
 
@@ -95,6 +95,9 @@ class saveReplyAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class deleteCommentAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([IsAuthenticatedOrReadOnly]))
     def delete(self, request, commentId):
         comment = Comment.objects.get(pk=commentId)
         comment.delete()
@@ -102,6 +105,9 @@ class deleteCommentAPI(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class deleteReplyAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([IsAuthenticatedOrReadOnly]))
     def delete(self, request, replyId):
         reply = Reply.objects.get(pk=replyId)
         reply.delete()
