@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'User',
     'Movie',
+    'Watchlist',
     'django.contrib.sites',
     'allauth.socialaccount',
     # Login via Google as an exemple, you can choose facebook, twitter as you like
