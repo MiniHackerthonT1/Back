@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import permission_classes,  authentication_classes
 from django.utils.decorators import method_decorator
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 import requests
 from rest_framework.response import Response
@@ -9,11 +9,13 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from .serializers import *
 from rest_framework.decorators import api_view
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Movie
 
 # Create your views here.
 class registerWatchlistAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    @method_decorator(permission_classes([IsAuthenticatedOrReadOnly]))
     def post(self, request):
         movieId = request.data['movieId']
         movie = Movie.objects.get(pk=movieId)
